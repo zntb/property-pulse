@@ -4,7 +4,12 @@ export const metadata = {
   title: 'PropertyPulse | Find The Perfect Rental',
   description: 'Find your dream rental property.',
   keywords: 'rental, find properties, find rentals, find the perfect rental',
-  viewport: 'width=device-width, initial-scale=1.0',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 const MainLayout = ({ children }) => {
