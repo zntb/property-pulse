@@ -1,9 +1,19 @@
-import connectDB from '../../../config/database.js';
+import connectDB from '@/config/database.js';
+import Property from '@/models/Property.js';
 
+// GET /api/properties
 export const GET = async (request) => {
   try {
     await connectDB();
-    return new Response(JSON.stringify({ message: 'Hello, Next.js!' }), {
+
+    const properties = await Property.find({});
+    if (!properties) {
+      return new Response('No properties found', {
+        status: 404,
+      });
+    }
+
+    return new Response(JSON.stringify(properties), {
       status: 200,
     });
   } catch (error) {
