@@ -1,6 +1,7 @@
-import '@/assets/styles/globals.css';
+import AuthProvider from '../components/AuthProvider.jsx';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import '@/assets/styles/globals.css';
 
 export const metadata = {
   title: 'PropertyPulse | Find The Perfect Rental',
@@ -16,13 +17,15 @@ export const viewport = {
 
 const MainLayout = ({ children }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </AuthProvider>
   );
 };
 
