@@ -9,11 +9,11 @@ const PropertySchema = new Schema(
     },
     name: {
       type: String,
-      required: [true, 'Name is required'],
+      required: true,
     },
     type: {
       type: String,
-      required: [true, 'Type is required'],
+      required: true,
     },
     description: {
       type: String,
@@ -87,4 +87,5 @@ const PropertySchema = new Schema(
 );
 
 const Property = models.Property || model('Property', PropertySchema);
+
 export default Property;
