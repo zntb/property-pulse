@@ -1,6 +1,8 @@
 import AuthProvider from '../components/AuthProvider.jsx';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/styles/globals.css';
 
 export const metadata = {
@@ -23,6 +25,7 @@ const MainLayout = ({ children }) => {
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <ToastContainer />
         </body>
       </html>
     </AuthProvider>
