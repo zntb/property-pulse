@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation.js';
 import { fetchProperty } from '@/utils/requests.js';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage.jsx';
 import PropertyDetails from '@/components/PropertyDetails.jsx';
+import PropertyImages from '@/components/PropertyImages.jsx';
 import Spinner from '@/components/Spinner.jsx';
 import { FaArrowLeft } from 'react-icons/fa';
 
@@ -150,6 +151,7 @@ const PropertyPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages images={property.images} />
         </>
       )}
     </>
