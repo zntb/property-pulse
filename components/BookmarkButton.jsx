@@ -73,6 +73,11 @@ const BookmarkButton = ({ property }) => {
 
   if (loading) return <p className="text-center">Loading...</p>;
 
+  // If user is not signed in do not show button
+  //   if (!userId) {
+  //     return null;
+  //   }
+
   return isBookmarked ? (
     <button
       onClick={handleClick}
