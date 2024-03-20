@@ -1,9 +1,35 @@
-import connectDB from '@/config/database.js';
-import User from '@/models/User.js';
-import Property from '@/models/Property.js';
+import connectDB from '@/config/database';
+import User from '@/models/User';
+import Property from '@/models/Property';
 import { getSessionUser } from '@/utils/getSessionUser';
 
 export const dynamic = 'force-dynamic';
+
+// GET /api/bookmarks
+export const GET = async () => {
+  try {
+    await connectDB();
+
+    const sessionUser = await getSessionUser();
+
+    if (!sessionUser || !sessionUser.userId) {
+      return new Response('User ID is required', { status: 401 });
+    }
+
+    const { userId } = sessionUser;
+
+    // Find user in database
+    const user = await User.findOne({ _id: userId });
+
+    // Get users bookmarks
+    const bookmarks = await Property.find({ _id: { $in: user.bookmarks } });
+
+    return new Response(JSON.stringify(bookmarks), { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return new Response('Something went wrong', { status: 500 });
+  }
+};
 
 export const POST = async (request) => {
   try {
@@ -26,21 +52,22 @@ export const POST = async (request) => {
     let isBookmarked = user.bookmarks.includes(propertyId);
 
     let message;
+
     if (isBookmarked) {
-      // Remove property from bookmarks if already bookmarked
+      // If already bookmarked, remove it
       user.bookmarks.pull(propertyId);
-      message = 'Property removed from bookmarks';
+      message = 'Bookmark removed successfully';
       isBookmarked = false;
     } else {
-      // Add property to bookmarks if not bookmarked
+      // If not bookmarked, add it
       user.bookmarks.push(propertyId);
-      message = 'Property added to bookmarks';
+      message = 'Bookmark added successfully';
       isBookmarked = true;
     }
 
     await user.save();
 
-    return new Response(JSON.stringify({ isBookmarked, message }), {
+    return new Response(JSON.stringify({ message, isBookmarked }), {
       status: 200,
     });
   } catch (error) {
