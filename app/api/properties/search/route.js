@@ -1,5 +1,5 @@
-import connectDB from '@/config/database.js';
-import Property from '@/models/Property.js';
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
 
 // GET /api/properties/search
 export const GET = async (request) => {
@@ -7,7 +7,6 @@ export const GET = async (request) => {
     await connectDB();
 
     const { searchParams } = new URL(request.url);
-
     const location = searchParams.get('location');
     const propertyType = searchParams.get('propertyType');
 
@@ -38,8 +37,6 @@ export const GET = async (request) => {
     });
   } catch (error) {
     console.log(error);
-    return new Response('Something went wrong', {
-      status: 500,
-    });
+    return new Response('Something went wrong', { status: 500 });
   }
 };
