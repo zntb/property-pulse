@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation.js';
-import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const PropertySearchForm = () => {
   const [location, setLocation] = useState('');
@@ -12,11 +11,11 @@ const PropertySearchForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (location === '' || propertyType === 'All') {
-      toast.error('Please enter a location and property type');
+    if (location === '' && propertyType === 'All') {
       router.push('/properties');
     } else {
       const query = `?location=${location}&propertyType=${propertyType}`;
+
       router.push(`/properties/search-results${query}`);
     }
   };
@@ -69,5 +68,4 @@ const PropertySearchForm = () => {
     </form>
   );
 };
-
 export default PropertySearchForm;
