@@ -2,8 +2,11 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FaPaperPlane } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
 
 const PropertyContactForm = ({ property }) => {
+  const { data: session } = useSession();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -35,8 +38,8 @@ const PropertyContactForm = ({ property }) => {
         toast.success('Your message has been sent successfully!');
         setWasSubmitted(true);
       } else if (res.status === 400 || res.status === 401) {
-        const data = await res.json();
-        toast.error(data.message);
+        const dataObj = await res.json();
+        toast.error(dataObj.message);
       } else {
         toast.error('Error sending form!');
       }
@@ -56,7 +59,11 @@ const PropertyContactForm = ({ property }) => {
       <h3 className="text-xl font-bold mb-6 text-center">
         Contact Property Manager
       </h3>
-      {wasSubmitted ? (
+      {!session ? (
+        <p className="text-gray-500 mb-4 text-center">
+          Please sign in to contact the property manager.
+        </p>
+      ) : wasSubmitted ? (
         <p className="text-green-500 mb-4 text-center">
           Your message has been sent successfully!
         </p>
