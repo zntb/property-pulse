@@ -1,10 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useGlobalContext } from '../context/GlobalContext.js';
 import { toast } from 'react-toastify';
 
 const UnreadMessageCount = ({ session }) => {
-  const [unreadCount, setUnreadCount] = useState(0);
+  const { unreadCount, setUnreadCount } = useGlobalContext();
 
+  // Fetch unread count
   useEffect(() => {
     const fetchUnreadCount = async () => {
       if (!session) return;
@@ -25,7 +27,7 @@ const UnreadMessageCount = ({ session }) => {
     };
 
     fetchUnreadCount();
-  }, [session]);
+  }, [session, setUnreadCount]);
 
   return (
     unreadCount > 0 && (

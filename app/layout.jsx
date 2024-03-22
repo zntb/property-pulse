@@ -1,4 +1,5 @@
 import AuthProvider from '../components/AuthProvider.jsx';
+import { GlobalProvider } from '../context/GlobalContext.js';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -19,16 +20,18 @@ export const viewport = {
 
 const MainLayout = ({ children }) => {
   return (
-    <AuthProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ToastContainer />
-        </body>
-      </html>
-    </AuthProvider>
+    <GlobalProvider>
+      <AuthProvider>
+        <html lang="en" suppressHydrationWarning>
+          <body>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ToastContainer />
+          </body>
+        </html>
+      </AuthProvider>
+    </GlobalProvider>
   );
 };
 
