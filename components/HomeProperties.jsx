@@ -3,8 +3,8 @@ import Link from 'next/link.js';
 import { fetchProperties } from '../utils/requests.js';
 
 const HomeProperties = async () => {
-  const properties = await fetchProperties();
-  const recentProperties = properties
+  const data = await fetchProperties();
+  const recentProperties = data.properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
 
