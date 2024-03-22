@@ -16,6 +16,40 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(false);
+  const [showNavigation, setShowNavigation] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollTop > 0.2 * window.innerHeight) {
+        setShowNavigation(false);
+      } else {
+        setShowNavigation(true);
+      }
+    };
+
+    const handleMouseMove = (event) => {
+      const mouseY = event.clientY;
+      const windowHeight = window.innerHeight;
+      const threshold = 0.2 * windowHeight;
+
+      const scrollPercentage =
+        (window.scrollY / (document.body.scrollHeight - windowHeight)) * 100;
+
+      setShowNavigation(mouseY <= threshold || scrollPercentage <= 0.2);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const pathname = usePathname();
 
@@ -28,7 +62,11 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-blue-700 border-b border-blue-500">
+    <nav
+      className={`bg-blue-700 border-b border-blue-500 fixed top-0 z-50 w-full transition-opacity duration-500 ease-in-out ${
+        showNavigation ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -224,7 +262,7 @@ const Navbar = () => {
       {/* <!-- Mobile menu, show/hide based on menu state. --> */}
       {isMobileMenuOpen && (
         <div id="mobile-menu">
-          <div className="space-y-1 px-2 pb-3 pt-2">
+          <div className="space-y-1 px-2 pb-3 pt-2 border-t border-blue-500">
             <Link
               href="/"
               className={`${
