@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const SavedPropertiesPage = () => {
   const [properties, setProperties] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSavedProperties = async () => {
@@ -24,19 +24,19 @@ const SavedPropertiesPage = () => {
         console.log(error);
         toast.error('Failed to fetch saved properties');
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
     fetchSavedProperties();
   }, []);
 
-  return isLoading ? (
-    <Spinner />
+  return loading ? (
+    <Spinner loading={loading} />
   ) : (
-    <section className="px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">Saved Properties</h1>
+    <section className="px-4 py-6" style={{ minHeight: 'calc(100vh - 162px)' }}>
       <div className="container-xl lg:container m-auto px-4 py-6">
+        <h1 className="text-2xl mb-4">Saved Properties</h1>
         {properties.length === 0 ? (
           <p>No saved properties</p>
         ) : (
@@ -50,5 +50,4 @@ const SavedPropertiesPage = () => {
     </section>
   );
 };
-
 export default SavedPropertiesPage;
