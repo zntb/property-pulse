@@ -15,3 +15,5 @@ const SubmitMessageButton = () => {
     </button>
   );
 };
+
+export default SubmitMessageButton;
