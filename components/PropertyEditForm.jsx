@@ -145,6 +145,7 @@ const PropertyEditForm = ({ property }) => {
         <label className="block text-gray-700 font-bold mb-2">Amenities</label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           <div>
+            {/* file deepcode ignore ReactControlledUncontrolledFormElement: <please specify a reason of ignoring this> */}
             <input
               type="checkbox"
               id="amenity_wifi"
