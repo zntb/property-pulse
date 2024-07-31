@@ -3,14 +3,17 @@ import PropertySearchForm from "@/components/PropertySearchForm";
 import Property from "@/models/Property";
 import connectDB from "@/config/database";
 
-const PropertiesPage = async () => {
+const PropertiesPage = async ({ searchParams: { pageSize = 3, page = 1 } }) => {
   await connectDB();
-  const properties = await Property.find({}).lean();
+  const skip = (page - 1) * pageSize;
+
+  const total = await Property.countDocuments({});
+  const properties = await Property.find({}).skip(skip).limit(pageSize);
 
   return (
     <>
-      <section class="bg-blue-700 py-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start">
+      <section className="bg-blue-700 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start">
           <PropertySearchForm />
         </div>
       </section>
