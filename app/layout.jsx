@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
   return (
     <AuthProvider>
       <GlobalProvider>
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
           <body>
             <Navbar />
             <main>{children}</main>
