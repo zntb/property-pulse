@@ -37,7 +37,7 @@ async function updateProperty(propertyId, formData) {
     rates: {
       weekly: formData.get("rates.weekly"),
       monthly: formData.get("rates.monthly"),
-      nightly: formData.get("rates.nightly."),
+      nightly: formData.get("rates.nightly"),
     },
     seller_info: {
       name: formData.get("seller_info.name"),
