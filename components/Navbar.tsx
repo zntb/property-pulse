@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -27,6 +27,8 @@ const Navbar = () => {
     ClientSafeProvider
   > | null>(null);
   const [showNavigation, setShowNavigation] = useState(true);
+
+  const profileMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,6 +78,27 @@ const Navbar = () => {
       setIsMobileMenuOpen(false);
     });
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    if (isProfileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProfileMenuOpen]);
 
   return (
     <nav
@@ -206,7 +229,7 @@ const Navbar = () => {
                 </button>
                 <UnreadMessageCount />
               </Link>
-
+              {/* <!-- Profile dropdown button --> */}
               <div className="relative ml-3">
                 <div>
                   <button
@@ -214,7 +237,7 @@ const Navbar = () => {
                     id="profile-dropdown-button"
                     className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2
                       focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    aria-expanded="false"
+                    aria-expanded={isProfileMenuOpen ? 'true' : 'false'}
                     aria-haspopup="true"
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   >
@@ -233,6 +256,7 @@ const Navbar = () => {
                 {/* <!-- Profile dropdown--> */}
                 {isProfileMenuOpen && (
                   <div
+                    ref={profileMenuRef}
                     className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1
                       shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
