@@ -25,7 +25,7 @@
     "react-share": "^5.1.0",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/next-auth": "^3.15.0",
