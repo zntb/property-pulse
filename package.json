@@ -12,7 +12,7 @@
     "cloudinary": "^2.5.1",
     "mapbox-gl": "^3.7.0",
     "mongodb": "^6.9.0",
-    "mongoose": "^8.7.2",
+    "mongoose": "^8.7.3",
     "next": "^14.2.15",
     "next-auth": "^4.24.10",
     "photoswipe": "^5.4.4",
