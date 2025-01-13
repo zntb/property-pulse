@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "cloudinary": "^2.5.1",
-    "mapbox-gl": "^3.8.0",
+    "mapbox-gl": "^3.9.0",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.3",
     "next": "^14.2.21",
