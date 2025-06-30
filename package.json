@@ -11,7 +11,7 @@
   "dependencies": {
     "cloudinary": "^2.6.1",
     "mapbox-gl": "^3.11.0",
-    "mongodb": "^6.16.0",
+    "mongodb": "^6.17.0",
     "mongoose": "^8.15.1",
     "next": "^14.2.29",
     "next-auth": "^4.24.11",
