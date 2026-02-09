@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "cloudinary": "^2.8.0",
+    "cloudinary": "^2.9.0",
     "mapbox-gl": "^3.17.0",
     "mongodb": "^6.21.0",
     "mongoose": "^8.20.4",
